@@ -20,7 +20,7 @@ const LeaderBoard = () => {
       
       try {
         // Fetch complete leaderboard
-        const leaderboardResponse = await axios.get("http://localhost:5000/api/user/leaderboard/", {
+        const leaderboardResponse = await axios.get("https://crackhunt2-0.onrender.com/api/user/leaderboard/", {
           headers: token ? {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',

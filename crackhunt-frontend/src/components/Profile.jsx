@@ -18,7 +18,7 @@ const Profile = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
+      const response = await axios.post("https://crackhunt2-0.onrender.com/api/auth/login", {
         email: username,
         username,
         password,

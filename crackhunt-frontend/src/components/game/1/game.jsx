@@ -50,7 +50,7 @@ const Hangman = () => {
       console.log("Updating score with token:", token);
   
       const response = await axios.post(
-        "http://localhost:5000/api/user/update-score",
+        "https://crackhunt2-0.onrender.com/api/user/update-score",
         {
           level_completed: currentLevel,
           completion_time: completionTime

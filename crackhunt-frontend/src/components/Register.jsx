@@ -35,7 +35,7 @@ const Register = () => {
         password: trimmedPassword,
       });
       
-      response = await axios.post("http://localhost:5000/api/auth/register", {
+      response = await axios.post("https://crackhunt2-0.onrender.com/api/auth/register", {
         email: trimmedUsername,
         username: trimmedUsername,
         password: trimmedPassword,

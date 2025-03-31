@@ -19,7 +19,7 @@ const TowerOfHanoi = () => {
 
   const updateScore = async (gameId, score) => {
     try {
-      const response = await fetch("http://localhost:5000/api/user/update-score", {
+      const response = await fetch("https://crackhunt2-0.onrender.com/api/user/update-score", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

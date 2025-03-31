@@ -17,7 +17,7 @@ const Games = () => {
   const token = localStorage.getItem("refreshToken");
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/user/get-score", { 
+      .get("https://crackhunt2-0.onrender.com/api/user/get-score", { 
         headers: {
           Authorization: `Bearer ${token}`,
         },
