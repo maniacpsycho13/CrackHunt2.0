@@ -76,7 +76,7 @@ const LeaderBoard = () => {
                     <th>Score</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody style={{ overflowY: "auto" }}>
                   {leaderboard.length > 0 ? (
                     leaderboard.map((player, index) => (
                       <tr key={index} className={`rank-${index + 1}`}>

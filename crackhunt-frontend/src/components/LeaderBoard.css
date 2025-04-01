@@ -152,6 +152,7 @@ body, html {
   border-collapse: separate;
   border-spacing: 0 8px;
   table-layout: fixed;
+  overflow-y: auto;
 }
 
 .leaderboard-table th {
