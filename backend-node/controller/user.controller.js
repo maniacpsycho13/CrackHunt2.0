@@ -49,7 +49,7 @@ export const updateScore = async (req, res) => {
             create: {
                 userId,
                 levelId: level_completed,
-                completedTime: completion_time
+                completedTime: score
             }
         });
 

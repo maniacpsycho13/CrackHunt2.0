@@ -7,7 +7,7 @@ const COLORS = ['red', 'blue', 'green', 'yellow'];
 const INITIAL_DELAY = 1000;
 const SEQUENCE_DELAY = 800;
 const FLASH_DURATION = 500;
-const WINNING_SCORE = 2;
+const WINNING_SCORE = 10;
 
 const SimonSays = () => {
   const navigate = useNavigate();

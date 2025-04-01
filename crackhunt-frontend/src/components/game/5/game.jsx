@@ -13,7 +13,7 @@ const PIPE_SPEED = 2;
 const BIRD_X_POSITION = 100;
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 800;
-const WIN_SCORE = 12;
+const WIN_SCORE = 15;
 
 const FlappyBird = () => {
     const [birdY, setBirdY] = useState(GAME_HEIGHT / 2);
