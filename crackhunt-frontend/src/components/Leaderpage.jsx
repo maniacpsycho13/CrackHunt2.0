@@ -13,6 +13,11 @@ const LeaderBoard = () => {
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentUserRank, setCurrentUserRank] = useState(null);
+  const [currentUserScore, setCurrentUserScore] = useState(null);
+  const storedUser = JSON.parse(localStorage.getItem("loggedInUser")); 
+  const currentUsername = storedUser?.username || null;
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,8 +34,16 @@ const LeaderBoard = () => {
           }
         });
 
-        // Set the leaderboard data
-        setLeaderboard(leaderboardResponse.data.leaderboard || []);
+        const leaderboardData = leaderboardResponse.data.leaderboard || [];
+        setLeaderboard(leaderboardData);
+        
+        // Find current user's rank
+        const currentUserIndex = leaderboardData.findIndex(user => user.username === currentUsername);
+        if (currentUserIndex !== -1) {
+          setCurrentUserRank(currentUserIndex + 1); // Rank starts from 1
+          setCurrentUserScore(leaderboardData[currentUserIndex].totalScore);
+        }
+
         setLoading(false);
       } catch (error) {
         console.error("API Error:", error.response?.data || error.message);
@@ -40,7 +53,7 @@ const LeaderBoard = () => {
     };
 
     fetchData();
-  }, []);
+  }, [currentUsername]);
   
   return (
     <div className="home-container">
@@ -67,8 +80,8 @@ const LeaderBoard = () => {
               <p className="error-text">{error}</p>
             </div>
           ) : (
-            <div className="leaderboard-table-container">
-              <table className="leaderboard-table">
+            <div className="leaderboard-table-container" style={{ maxHeight: "400px", overflowY: "auto" }}>
+              <table className="leaderboard-table" style={{ overflowY: "auto", maxHeight: "400px" }}>
                 <thead>
                   <tr>
                     <th>Rank</th>
@@ -76,7 +89,7 @@ const LeaderBoard = () => {
                     <th>Score</th>
                   </tr>
                 </thead>
-                <tbody style={{ overflowY: "auto" }}>
+                <tbody style={{ overflowY: "auto" , maxHeight: "400px" }}>
                   {leaderboard.length > 0 ? (
                     leaderboard.map((player, index) => (
                       <tr key={index} className={`rank-${index + 1}`}>
@@ -90,13 +103,24 @@ const LeaderBoard = () => {
                       <td colSpan="3" className="no-data">No leaderboard data available</td>
                     </tr>
                   )}
+
+                  {currentUsername && (
+                    <tr className="current-user-row" style={{ backgroundColor: "#6A4FA3", color:"#FFD700", position: "sticky", bottom: 0, fontWeight: "bold" }}>
+                      <td>{currentUserRank || "--"}</td>
+                      <td>{currentUsername} (You)</td>
+                      <td>{currentUserScore || 0}</td>
+                    </tr>
+                  )}
+
+
+
                 </tbody>
               </table>
             </div>
           )}
         </div>
       </div>
-      <div className="ghost1parent">
+      {/* <div className="ghost1parent">
         <img src={ghost1} alt="ghost1" className="ghost1" />
       </div>
       <div className="ghost2parent">
@@ -110,7 +134,7 @@ const LeaderBoard = () => {
       </div>
       <div className="trees2parent">
         <img src={trees2} alt="trees2" className="trees2" />
-      </div>
+      </div> */}
     </div>
   );
 };
