@@ -178,7 +178,7 @@ const ReversiGame = ({ onComplete }) => {
         setGameOver(true);
         if (newBlackCount > newWhiteCount) {
           updateUserScore().then(() => {
-            setTimeout(() => navigate('/next-level'), 2000);
+            setTimeout(() => navigate('/game/11'), 2000);
           });
         }
       }
@@ -212,7 +212,7 @@ const ReversiGame = ({ onComplete }) => {
         setGameOver(true);
         if (countPieces(currentBoard, 'black') > countPieces(currentBoard, 'white')) {
           updateUserScore().then(() => {
-            setTimeout(() => navigate('/next-level'), 2000);
+            setTimeout(() => navigate('/game/11'), 2000);
           });
         }
       } else {
@@ -297,7 +297,7 @@ const ReversiGame = ({ onComplete }) => {
         setGameOver(true);
         if (newBlackCount > newWhiteCount) {
           updateUserScore().then(() => {
-            setTimeout(() => navigate('/next-level'), 2000);
+            setTimeout(() => navigate('/game/11'), 2000);
           });
         }
       } else {
@@ -387,7 +387,7 @@ const ReversiGame = ({ onComplete }) => {
                 className={`${styles.button} ${styles.nextLevelButton}`}
                 onClick={() => {
                   updateUserScore().then(() => {
-                    navigate('/next-level')
+                    navigate('/game/11')
                   });
                 }}
               >

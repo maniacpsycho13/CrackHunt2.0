@@ -22,7 +22,7 @@ const PegSolitaire = () => {
   const [won, setWon] = useState(false);
   const [startTime, setStartTime] = useState(Date.now());
   const navigate = useNavigate();
-  const currentLevel = 'level-6'; // Set this based on the current game level
+  const currentLevel = 'level-6';
 
   useEffect(() => {
     resetGame();
@@ -64,7 +64,7 @@ const PegSolitaire = () => {
   };
 
   const handlePegClick = (row, col) => {
-    if (gameOver) return;
+    if (gameOver || board[row][col] === 0) return;
 
     if (selectedPeg === null && board[row][col] === 1) {
       setSelectedPeg({ row, col });
@@ -121,7 +121,7 @@ const PegSolitaire = () => {
     if (pegCount === 1) {
       setWon(true);
       updateUserScore().then(() => {
-        setTimeout(() => navigate("/game/level7"), 2000);
+        setTimeout(() => navigate("/game/7"), 2000);
       });
     }
   };
@@ -129,26 +129,37 @@ const PegSolitaire = () => {
   return (
     <div className={styles.gameWrapper}>
       <div className={styles.gameContainer}>
-        <h2>Peg Solitaire</h2>
+        <h2 className={styles.title}>Peg Solitaire</h2>
+        <div className={styles.gameInfo}>
+          <span className={styles.moves}>Moves: {moves}</span>
+          <button className={styles.resetButton} onClick={resetGame}>Reset</button>
+        </div>
         <div className={styles.board}>
           {board.map((row, rowIndex) => (
             <div key={rowIndex} className={styles.row}>
               {row.map((cell, colIndex) => (
-                <div key={colIndex} className={styles.cell} onClick={() => handlePegClick(rowIndex, colIndex)}>
-                  {cell === 1 && <div className={styles.peg} />}
+                <div 
+                  key={colIndex} 
+                  className={`${styles.cell} ${cell === 0 ? styles.invalid : ''}`}
+                  onClick={() => handlePegClick(rowIndex, colIndex)}
+                >
+                  {cell === 1 && (
+                    <div className={`${styles.peg} ${
+                      selectedPeg?.row === rowIndex && selectedPeg?.col === colIndex ? styles.selected : ''
+                    }`} />
+                  )}
                   {cell === 2 && <div className={styles.empty} />}
                 </div>
               ))}
             </div>
           ))}
         </div>
-        <p className={styles.moves}>Moves: {moves}</p>
         {(gameOver || won) && (
-          <div className={styles.modalOverlay}>
-            <div className={styles.modal}>
-              <h3>{won ? "You Win! 🎉" : "Game Over!"}</h3>
+          <div className={styles.gameOverlay}>
+            <div className={styles.gameOverMessage}>
+              <h2>{won ? "You Win! 🎉" : "Game Over!"}</h2>
               <p>Total Moves: {moves}</p>
-              <button onClick={resetGame} className={styles.restartBtn}>Restart Game</button>
+              <button className={styles.restartButton} onClick={resetGame}>Play Again</button>
             </div>
           </div>
         )}

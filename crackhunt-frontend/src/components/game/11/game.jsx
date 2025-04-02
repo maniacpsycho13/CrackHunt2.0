@@ -134,7 +134,7 @@ const Sudoku = () => {
             </button>
             <button 
               className={`${styles.button} ${styles.nextLevelButton}`}
-              onClick={() => navigate('/game12')}
+              onClick={() => navigate('/game/12')}
             >
               Next Level
             </button>

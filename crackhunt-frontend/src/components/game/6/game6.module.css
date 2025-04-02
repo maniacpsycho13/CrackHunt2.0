@@ -1,4 +1,4 @@
-.pegSolitaire {
+.gameWrapper {
   text-align: center;
   max-width: 700px;
   width: 100%;
@@ -10,66 +10,44 @@
     0 5px 15px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  transform: translateZ(50px);
   margin: 0 auto;
 }
 
-h1 {
+.gameContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.title {
   color: #bb86fc;
-  margin-bottom: 30px;
-  font-size: 3rem;
+  margin-bottom: 10px;
+  font-size: 2.5rem;
   text-shadow: 0 0 15px rgba(187, 134, 252, 0.5);
-  letter-spacing: 2px;
-  background: linear-gradient(45deg, #bb86fc, #03dac6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .gameInfo {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-  padding: 0 10px;
+  width: 100%;
+  max-width: 500px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   padding: 15px;
 }
 
-.gameInfo span {
-  font-size: 1.5rem;
+.moves {
+  font-size: 1.2rem;
   color: #03dac6;
   text-shadow: 0 0 10px rgba(3, 218, 198, 0.5);
-}
-
-button {
-  background: linear-gradient(145deg, #3700b3, #6200ee);
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-  box-shadow: 
-    0 10px 20px rgba(55, 0, 179, 0.4),
-    0 5px 10px rgba(55, 0, 179, 0.3);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-family: inherit;
-}
-
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 
-    0 15px 25px rgba(55, 0, 179, 0.5),
-    0 7px 15px rgba(55, 0, 179, 0.4);
 }
 
 .board {
   display: inline-block;
   background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-  padding: 25px;
+  padding: 20px;
   border-radius: 15px;
   box-shadow: 
     10px 10px 20px #0f0f0f,
@@ -77,19 +55,21 @@ button:hover {
   border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-.boardRow {
+.row {
   display: flex;
 }
 
 .cell {
-  width: 55px;
-  height: 55px;
-  margin: 5px;
+  width: 50px;
+  height: 50px;
+  margin: 4px;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
-  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .invalid {
@@ -97,6 +77,9 @@ button:hover {
 }
 
 .empty {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
   border: 2px solid #333;
   box-shadow: 
@@ -105,28 +88,41 @@ button:hover {
 }
 
 .peg {
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
   background: linear-gradient(145deg, #bb86fc, #9e6fdb);
   border: 2px solid rgba(255, 255, 255, 0.2);
   box-shadow: 
-    0 10px 20px rgba(187, 134, 252, 0.3),
-    inset 0 0 15px rgba(255, 255, 255, 0.2);
-  transform: translateZ(10px);
+    0 5px 15px rgba(187, 134, 252, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
 }
 
 .selected {
   background: linear-gradient(145deg, #03dac6, #00bda5);
   border-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1) translateZ(15px);
+  transform: scale(1.1);
   box-shadow: 
-    0 15px 25px rgba(3, 218, 198, 0.4),
-    0 0 20px #03dac6;
+    0 0 20px rgba(3, 218, 198, 0.6),
+    0 5px 15px rgba(3, 218, 198, 0.4);
 }
 
-.peg:hover:not(.selected) {
-  transform: scale(1.05) translateZ(12px);
-  box-shadow: 
-    0 12px 22px rgba(187, 134, 252, 0.4),
-    0 0 15px #bb86fc;
+.resetButton, .restartButton {
+  background: linear-gradient(145deg, #3700b3, #6200ee);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(55, 0, 179, 0.3);
+}
+
+.resetButton:hover, .restartButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(55, 0, 179, 0.4);
 }
 
 .gameOverlay {
@@ -135,25 +131,40 @@ button:hover {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 100;
-  backdrop-filter: blur(10px);
 }
 
 .gameOverMessage {
   background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
-  padding: 40px;
+  padding: 30px;
   border-radius: 15px;
-  max-width: 500px;
+  max-width: 400px;
   text-align: center;
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.5),
-    0 0 20px rgba(187, 134, 252, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
   border: 2px solid rgba(255, 255, 255, 0.1);
   animation: pulse 1.5s infinite;
+}
+
+.gameOverMessage h2 {
+  color: #bb86fc;
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+.gameOverMessage p {
+  font-size: 1.2rem;
+  color: #03dac6;
+  margin: 15px 0;
+}
+
+.restartButton {
+  background: linear-gradient(145deg, #03dac6, #00bda5);
+  color: #000;
+  font-weight: bold;
 }
 
 @keyframes pulse {
@@ -162,37 +173,27 @@ button:hover {
   100% { transform: scale(1); }
 }
 
-.gameOverMessage h2 {
-  color: #bb86fc;
-  margin-top: 0;
-  font-size: 2.5rem;
-  text-shadow: 0 0 20px rgba(187, 134, 252, 0.5);
-}
-
-.gameOverMessage p {
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  color: #03dac6;
-  text-shadow: 0 0 15px rgba(3, 218, 198, 0.5);
-}
-
-.gameOverMessage button {
-  background: linear-gradient(145deg, #03dac6, #00bda5);
-  color: #000;
-  font-weight: bold;
-}
-
-.gameOverMessage button:hover {
-  background: linear-gradient(145deg, #00bda5, #03dac6);
-}
-
 @media (max-width: 600px) {
   .cell {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
+    margin: 3px;
   }
-
-  h1 {
-    font-size: 2.5rem;
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .gameInfo {
+    padding: 10px;
+  }
+  
+  .moves {
+    font-size: 1rem;
+  }
+  
+  .resetButton, .restartButton {
+    padding: 8px 16px;
+    font-size: 0.9rem;
   }
 }

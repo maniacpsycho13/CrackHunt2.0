@@ -211,7 +211,7 @@ const TowerOfHanoi = () => {
             <button className={styles.button} onClick={initializeGame}>Play Again</button>
             <button 
               className={styles.button} 
-              onClick={() => navigate('/game14')}
+              onClick={() => navigate('/game/14')}
             >
               Next Level
             </button>

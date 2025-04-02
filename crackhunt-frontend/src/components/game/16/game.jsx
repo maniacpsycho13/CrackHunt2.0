@@ -201,7 +201,7 @@ const HexGame = () => {
         setGameCompleted(true);
         updateUserScore().then(() => {
           setTimeout(() => {
-            navigate('/game-complete');
+            navigate('../leaderboard');
           }, 2000);
         });
       }
@@ -339,7 +339,7 @@ const HexGame = () => {
               className={styles.continueButton}
               onClick={() => {
                 updateUserScore().then(() => {
-                  navigate('/game-complete');
+                  navigate('../leaderboard');
                 });
               }}
             >
@@ -382,7 +382,7 @@ const HexGame = () => {
               className={styles.button}
               onClick={() => {
                 updateUserScore().then(() => {
-                  navigate('/game-complete');
+                  navigate('../leaderboard');
                 });
               }}
             >

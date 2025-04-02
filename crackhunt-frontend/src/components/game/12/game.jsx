@@ -55,7 +55,7 @@ const words = [
 ];
 
 
-// ... (words array remains the same)
+
 
 const WordGuessing = () => {
     const wordLength = 5;
@@ -110,7 +110,33 @@ const WordGuessing = () => {
     };
 
     const checkWord = useCallback((guessedWord) => {
-        // ... (previous implementation remains the same)
+        const targetWordArray = word.split("");
+        const statusArray = Array(wordLength).fill("incorrect");
+        const usedIndices = new Set();
+
+        // First pass: Check for correct positions (green)
+        for (let i = 0; i < wordLength; i++) {
+            if (guessedWord[i] === targetWordArray[i]) {
+                statusArray[i] = "correct";
+                usedIndices.add(i);
+                targetWordArray[i] = null; // Mark as used
+            }
+        }
+
+        // Second pass: Check for misplaced letters (yellow)
+        for (let i = 0; i < wordLength; i++) {
+            if (statusArray[i] !== "correct") {
+                const foundIndex = targetWordArray.findIndex(
+                    (char, index) => char === guessedWord[i] && !usedIndices.has(index)
+                );
+                if (foundIndex !== -1) {
+                    statusArray[i] = "misplaced";
+                    usedIndices.add(foundIndex);
+                }
+            }
+        }
+
+        return statusArray;
     }, [word]);
 
     const handleKeyPress = useCallback((key) => {
@@ -217,7 +243,7 @@ const WordGuessing = () => {
                         className={styles.button} 
                         onClick={() => {
                             updateUserScore().then(() => {
-                                navigate('/next-level');
+                                navigate('/game/13');
                             });
                         }}
                     >
