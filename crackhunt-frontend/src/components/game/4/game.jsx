@@ -9,14 +9,14 @@ const SlidingPuzzle = () => {
   const [isGameWon, setIsGameWon] = useState(false);
   const [message, setMessage] = useState('');
   const [startTime, setStartTime] = useState(Date.now());
+  const [showRules, setShowRules] = useState(false); // State for rules dialog
   const navigate = useNavigate();
-  const currentLevel = 'level-4'; // Set this based on the current game level
-  
+  const currentLevel = 'level-4';
   const size = 4; // 4x4 grid
 
   const updateUserScore = async () => {
     const endTime = Date.now();
-    const completionTime = Math.floor((endTime - startTime) / 1000); // Convert to seconds
+    const completionTime = Math.floor((endTime - startTime) / 1000);
     
     try {
       const token = localStorage.getItem('accessToken');
@@ -40,7 +40,6 @@ const SlidingPuzzle = () => {
     }
   };
 
-  // Initialize the puzzle
   const createPuzzle = () => {
     const newTiles = [...Array(size * size).keys()].slice(1);
     newTiles.push(null);
@@ -49,7 +48,6 @@ const SlidingPuzzle = () => {
     setMessage('');
   };
 
-  // Shuffle the tiles
   const shuffleTiles = () => {
     let shuffledTiles;
     do {
@@ -66,7 +64,6 @@ const SlidingPuzzle = () => {
     setMessage('');
   };
 
-  // Check if the puzzle is solvable
   const isSolvable = (tileArray) => {
     const filteredTiles = tileArray.filter(tile => tile !== null);
     let inversions = 0;
@@ -82,7 +79,6 @@ const SlidingPuzzle = () => {
     return (inversions + emptyRowFromBottom) % 2 === 0;
   };
 
-  // Move a tile
   const moveTile = (index) => {
     if (isGameWon) return;
 
@@ -103,7 +99,6 @@ const SlidingPuzzle = () => {
     }
   };
 
-  // Check if the player has won
   const checkWin = (currentTiles) => {
     if (currentTiles.slice(0, -1).every((tile, index) => tile === index + 1)) {
       setIsGameWon(true);
@@ -114,12 +109,15 @@ const SlidingPuzzle = () => {
     }
   };
 
-  // Start the game
   const startGame = () => {
     setGameState('playing');
     setStartTime(Date.now());
     createPuzzle();
     shuffleTiles();
+  };
+
+  const toggleRules = () => {
+    setShowRules(!showRules);
   };
 
   useEffect(() => {
@@ -131,12 +129,19 @@ const SlidingPuzzle = () => {
       {gameState === 'start' && (
         <div className={styles.startPage}>
           <h1>Sliding Puzzle Game</h1>
+          <button className={styles.rulesButton} onClick={toggleRules}>
+            Show Rules
+          </button>
           <button className={styles.startButton} onClick={startGame}>Start Game</button>
         </div>
       )}
 
       {gameState === 'playing' && (
         <div className={styles.gameContainer}>
+          <button className={styles.rulesButton} onClick={toggleRules}>
+            Show Rules
+          </button>
+          
           <div className={styles.puzzle}>
             {tiles.map((tile, index) => (
               <div
@@ -154,6 +159,26 @@ const SlidingPuzzle = () => {
               {message}
             </div>
           )}
+        </div>
+      )}
+
+      {/* Rules Dialog */}
+      {showRules && (
+        <div className={styles.rulesDialog}>
+          <div className={styles.rulesContent}>
+            <h2>Sliding Puzzle Rules</h2>
+            <ol>
+              <li>The goal is to arrange the tiles in numerical order from 1 to 15</li>
+              <li>Click on any tile adjacent to the empty space to move it</li>
+              <li>Tiles can only move horizontally or vertically into the empty space</li>
+              <li>You cannot move tiles diagonally</li>
+              <li>The empty space should be in the bottom-right corner when solved</li>
+              <li>Use the Shuffle button to reset the puzzle if you get stuck</li>
+            </ol>
+            <button onClick={toggleRules} className={styles.closeButton}>
+              Close
+            </button>
+          </div>
         </div>
       )}
     </div>

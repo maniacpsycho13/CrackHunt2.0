@@ -30,32 +30,68 @@
     align-items: center;
 }
 
-.rulesSection {
-    flex: 1;
-    min-width: 300px;
-    max-width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 1.5rem;
-    border-radius: 15px;
-    margin-bottom: 1.5rem;
-}
-
-.rulesTitle {
-    color: #4CAF50;
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-}
-
-.rulesList {
-    padding-left: 1.5rem;
-    color: #e0e0e0;
-    line-height: 1.6;
-}
-
-.rulesList li {
-    margin-bottom: 0.8rem;
-}
-
+.rulesDialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .rulesContent {
+    background-color: #f8f8f8;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    color: #333;
+  }
+  
+  .rulesContent h2 {
+    color: #2c3e50;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #3498db;
+  }
+  
+  .rulesContent ol {
+    padding-left: 20px;
+    text-align: left;
+  }
+  
+  .rulesContent li {
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  
+  .rulesContent li strong {
+    color: #2c3e50;
+  }
+  
+  .closeButton {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .closeButton:hover {
+    background-color: #c0392b;
+  }
+  
 .gameInfo {
     display: flex;
     justify-content: space-between;

@@ -8,6 +8,7 @@ const TowerOfHanoi = () => {
   const [time, setTime] = useState(0);
   const [towers, setTowers] = useState([[], [], []]);
   const [selectedDisk, setSelectedDisk] = useState(null);
+  const [showRules, setShowRules] = useState(false);
   const navigate = useNavigate();
   
   const timerRef = useRef(null);
@@ -125,6 +126,10 @@ const TowerOfHanoi = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const toggleRules = () => {
+    setShowRules(!showRules);
+  };
+
   useEffect(() => {
     return () => {
       if (timerRef.current) {
@@ -140,20 +145,15 @@ const TowerOfHanoi = () => {
           <h1 className={styles.title}>TOWER OF HANOI</h1>
           <div className={styles.instructions}>
             <p className={styles.instructionsText}>Move all disks from the first rod to the last rod</p>
-            <p className={styles.instructionsText}>Rules:</p>
-            <ul className={styles.instructionsList}>
-              <li className={styles.instructionsItem}>Only one disk can be moved at a time</li>
-              <li className={styles.instructionsItem}>A larger disk cannot be placed on top of a smaller disk</li>
-              <li className={styles.instructionsItem}>Only the top disk of a stack can be moved</li>
-            </ul>
-            <div className={styles.gameInfo}>
-              <p>Number of disks: {numberOfDisks}</p>
-              <p>Minimum moves required: {minMoves}</p>
-            </div>
           </div>
-          <button className={styles.button} onClick={initializeGame}>
-            START GAME
-          </button>
+          <div className={styles.buttonGroup}>
+            <button className={styles.button} onClick={initializeGame}>
+              START GAME
+            </button>
+            <button className={styles.rulesButton} onClick={toggleRules}>
+              SHOW RULES
+            </button>
+          </div>
         </div>
       )}
 
@@ -165,9 +165,14 @@ const TowerOfHanoi = () => {
               <span>Moves: {moves}</span>
               <span>Time: {formatTime(time)}</span>
             </div>
-            <button className={`${styles.button} ${styles.restartButton}`} onClick={initializeGame}>
-              Restart
-            </button>
+            <div className={styles.buttonGroup}>
+              <button className={styles.rulesButton} onClick={toggleRules}>
+                RULES
+              </button>
+              <button className={styles.restartButton} onClick={initializeGame}>
+                RESTART
+              </button>
+            </div>
           </div>
 
           <div className={styles.gameBoard}>
@@ -214,6 +219,37 @@ const TowerOfHanoi = () => {
               onClick={() => navigate('/game/14')}
             >
               Next Level
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Rules Dialog */}
+      {showRules && (
+        <div className={styles.rulesDialog}>
+          <div className={styles.rulesContent}>
+            <h2>Tower of Hanoi Rules</h2>
+            <ol>
+              <li><strong>Objective:</strong> Move all disks from the leftmost rod to the rightmost rod.</li>
+              <li><strong>Rules:</strong>
+                <ul>
+                  <li>Only one disk can be moved at a time.</li>
+                  <li>Each move consists of taking the upper disk from one of the stacks and placing it on top of another stack.</li>
+                  <li>No disk may be placed on top of a smaller disk.</li>
+                </ul>
+              </li>
+              <li><strong>Gameplay:</strong>
+                <ul>
+                  <li>Click on a tower to select the top disk.</li>
+                  <li>Click on another tower to move the selected disk there (if valid).</li>
+                  <li>The selected tower will be highlighted.</li>
+                </ul>
+              </li>
+              <li><strong>Challenge:</strong> Complete the puzzle in the fewest moves possible.</li>
+              
+            </ol>
+            <button onClick={toggleRules} className={styles.closeButton}>
+              CLOSE
             </button>
           </div>
         </div>
