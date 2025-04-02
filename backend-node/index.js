@@ -2,7 +2,9 @@ import express from 'express'
 import cors from 'cors';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js';
+import cookieParser from "cookie-parser";
 const app=express();
+app.use(cookieParser());
 
 const PORT=5000;
 app.use(express.json());
