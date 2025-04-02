@@ -36,6 +36,7 @@ const Profile = () => {
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("username", loggeduser);
       const loggedinUser = loggeduser;
+      console.log("Logged in user:", loggedinUser);
       login(loggedinUser); // Store user in AuthContext
       navigate("/"); // Redirect to home page
     } catch (error) {
