@@ -22,7 +22,7 @@ const Profile = () => {
         email: username,
         username,
         password,
-      });
+      },{withCredentials: true});
 
       console.log(response.data);
       
