@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const COOKIE_OPTIONS = {
     httpOnly: true, // Prevent JavaScript access to the cookie
-    secure: false, // Use secure cookies in production
+    secure: true, // Use secure cookies in production
     sameSite: "None", // Prevent CSRF attacks
     maxAge: 24 * 60 * 60 * 1000 // 1 day
 };
