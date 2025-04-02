@@ -12,11 +12,13 @@ app.use(express.urlencoded({extended:true}));
 
 app.use(cors(
     {
-        
+          
         origin:['https://crack-hunt2-0-zeta.vercel.app','http://localhost:3000','https://crack-hunt2-0-beta.vercel.app'],
         methods:['GET','POST','PUT','DELETE'],
         credentials:true,
-        exposedHeaders:['set-cookie']
+        exposedHeaders:['set-cookie','authorization'],
+        allowedHeaders:['Content-Type','Authorization'],
+
     }
 ));
 app.use(express.static('public'));

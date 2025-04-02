@@ -25,11 +25,7 @@ const LightsOut = () => {
           completion_time: completionTime,
           moves: moves
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        { withCredentials: true }
       );
       console.log("Score updated:", response.data);
       return true;

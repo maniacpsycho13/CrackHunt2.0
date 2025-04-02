@@ -95,11 +95,7 @@ const WordGuessing = () => {
                     completion_time: completionTime,
                     moves: attempts // Number of attempts
                 },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
+                { withCredentials: true }
             );
             console.log("Score updated:", response.data);
             return true;

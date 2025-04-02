@@ -1,9 +1,13 @@
 import jwt from "jsonwebtoken";
 
-export const verifyToken = (req, res, next) => {
+export const verifyToken = async (req, res, next) => {
     
-    const token = req.cookies.token; // Read token from cookies
-
+    const token =  req.cookies.token;
+    console.log("Token from header:", token);
+    console.log("Cookies:", req.cookies.token);
+     // Read token from cookies
+    console.log("Token from cookies:", token);
+    
     if (!token) {
         return res.status(403).json({ message: "Not authenticated" });
     }
@@ -14,5 +18,6 @@ export const verifyToken = (req, res, next) => {
         }
         req.userId = decoded.id;
         next();
+
     });
 };

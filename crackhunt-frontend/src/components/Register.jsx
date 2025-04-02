@@ -39,7 +39,10 @@ const Register = () => {
         email: trimmedUsername,
         username: trimmedUsername,
         password: trimmedPassword,
-      });
+      },{withCredentials: true});
+      console.log("Response data:", response.data);
+
+      console.log("Registration response:", response.data);
 
      
       

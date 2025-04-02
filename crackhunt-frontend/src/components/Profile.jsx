@@ -18,21 +18,25 @@ const Profile = () => {
 
   const handleLogin = async () => {
     try {
+      console.log(username);
+      console.log("calling login");
+      
       const response = await axios.post("https://crackhunt2-0.onrender.com/api/auth/login", {
         email: username,
         username,
         password,
       },{withCredentials: true});
-
-      console.log(response.data);
+      console.log("Login response:");
       
+      console.log(response.data);
+   
 
-      const { refreshToken , username } = response.data;
+      const { refreshToken , loggeduser } = response.data;
       localStorage.setItem("accessToken", refreshToken);
       localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("username", username);
-
-      // login(loggedInUser); // Store user in AuthContext
+      localStorage.setItem("username", loggeduser);
+      const loggedinUser = loggeduser;
+      login(loggedinUser); // Store user in AuthContext
       navigate("/"); // Redirect to home page
     } catch (error) {
       setError("Invalid username or password");

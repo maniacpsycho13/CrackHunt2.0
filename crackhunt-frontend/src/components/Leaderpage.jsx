@@ -26,13 +26,8 @@ const LeaderBoard = () => {
       try {
         // Fetch complete leaderboard
         const leaderboardResponse = await axios.get("https://crackhunt2-0.onrender.com/api/user/leaderboard/", {
-          headers: token ? {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          } : {
-            'Content-Type': 'application/json',
-          },
-        },{withCredentials: true});
+          withCredentials: true,
+        });
 
         const leaderboardData = leaderboardResponse.data.leaderboard || [];
         setLeaderboard(leaderboardData);

@@ -21,6 +21,7 @@ const Games = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        withCredentials: true,
        }) // token auth
       .then(response => {
         setUserData(response.data);

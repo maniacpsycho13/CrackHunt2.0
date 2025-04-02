@@ -41,11 +41,7 @@ const PegSolitaire = () => {
           level_completed: currentLevel,
           completion_time: completionTime
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        { withCredentials: true }
       );
       console.log("Score updated:", response.data);
       return true;

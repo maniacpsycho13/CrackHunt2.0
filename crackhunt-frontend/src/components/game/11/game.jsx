@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./game11.module.css";
+import axios from "axios";
 
 const Sudoku = () => {
   const size = 9;
@@ -28,13 +29,12 @@ const Sudoku = () => {
 
   const updateScore = async (gameId, score) => {
     try {
-      const response = await fetch("https://crackhunt2-0.onrender.com/api/user/update-score", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ level_completed:'level-11',completion_time:score,gameId, score }),
+      const response = await axios.post("https://crackhunt2-0.onrender.com/api/user/update-score", {
+        level_completed: 'level-11',
+        completion_time: score,
+
+      }, {
+        withCredentials: true,
       });
 
       if (!response.ok) {

@@ -51,11 +51,7 @@ const KakuroGame = () => {
           completion_time: completionTime,
           moves: moves // Number of moves made
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        { withCredentials: true }
       );
       console.log("Score updated:", response.data);
       return true;

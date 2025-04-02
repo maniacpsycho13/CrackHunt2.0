@@ -41,11 +41,7 @@ const MastermindGame = () => {
           completion_time: completionTime,
           moves: MAX_ATTEMPTS - attemptsLeft // Number of attempts used
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        { withCredentials: true }
       );
       console.log("Score updated:", response.data);
       return true;

@@ -45,11 +45,7 @@ const FlappyBird = () => {
                     level_completed: currentLevel,
                     completion_time: completionTime
                 },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
+                { withCredentials: true }
             );
             setTimeout(() => navigate("/game/6"), 2000);
         } catch (error) {

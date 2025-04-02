@@ -3,13 +3,15 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const COOKIE_OPTIONS = {
-    httpOnly: true, 
+    httpOnly: true, // Prevent JavaScript access to the cookie
     secure: true, // Use secure cookies in production
-    sameSite: "Strict", // Prevent CSRF attacks
+    sameSite: "None", // Prevent CSRF attacks
     maxAge: 24 * 60 * 60 * 1000 // 1 day
 };
 
 export const registerUser = async (req, res) => {
+    console.log("Register request body:");
+    
     const { username, email, password } = req.body;
     if (!username || !email || !password) {
         return res.status(400).json({ message: "All fields are required" });
@@ -36,13 +38,24 @@ export const registerUser = async (req, res) => {
     const accessToken = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
     // Send token in HTTP-only cookie
-    res.cookie("token", accessToken, COOKIE_OPTIONS);
+    res.cookie("token", accessToken , COOKIE_OPTIONS) ;
+    console.log("Set-Cookie Header:", res.getHeaders()["set-cookie"]);
 
     res.status(201).json({ message: "User registered successfully" });
 };
 
 export const loginUser = async (req, res) => {
+
+
+
+    console.log("Login request body:");
+
+    
+    
     const { email, password } = req.body;
+    console.log("Login request body:", req.body);
+    console.log("Login request email:", email);
+    console.log("Login request password:", password);
     if (!email || !password) {
         return res.status(400).json({ message: "All fields are required" });
     }
@@ -60,9 +73,10 @@ export const loginUser = async (req, res) => {
     const accessToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
     // Set HTTP-only cookie
-    res.cookie("token", accessToken, COOKIE_OPTIONS);
+    res.cookie("token", accessToken , COOKIE_OPTIONS);
+    console.log("Set-Cookie Header:", res.getHeaders()["set-cookie"]);
 
-    res.status(200).json({ message: "User logged in successfully" , username: user.username, email: user.email });
+    res.status(200).json({ message: "User logged in successfully" , loggeduser: user.username, });
 };
 
 export const logoutUser = async (req, res) => {

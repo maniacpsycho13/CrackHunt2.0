@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './game13.module.css';
+import axios from 'axios';
 
 const TowerOfHanoi = () => {
   const [gameState, setGameState] = useState('start'); // 'start', 'playing', 'won'
@@ -20,13 +21,12 @@ const TowerOfHanoi = () => {
 
   const updateScore = async (gameId, score) => {
     try {
-      const response = await fetch("https://crackhunt2-0.onrender.com/api/user/update-score", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify({ level_completed:'level-13',completedTime:score,gameId, score }),
+      const response = await axios.post("https://crackhunt2-0.onrender.com/api/user/update-score", {
+        
+        level_completed: 'level-13',
+        completion_time: score,
+      }, {
+        withCredentials: true,
       });
 
       if (!response.ok) {
