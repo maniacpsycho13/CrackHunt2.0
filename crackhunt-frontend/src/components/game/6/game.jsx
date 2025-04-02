@@ -21,6 +21,7 @@ const PegSolitaire = () => {
   const [gameOver, setGameOver] = useState(false);
   const [won, setWon] = useState(false);
   const [startTime, setStartTime] = useState(Date.now());
+  const [showRules, setShowRules] = useState(false); // State for rules dialog
   const navigate = useNavigate();
   const currentLevel = 'level-6';
 
@@ -126,14 +127,22 @@ const PegSolitaire = () => {
     }
   };
 
+  const toggleRules = () => {
+    setShowRules(!showRules);
+  };
+
   return (
     <div className={styles.gameWrapper}>
       <div className={styles.gameContainer}>
         <h2 className={styles.title}>Peg Solitaire</h2>
         <div className={styles.gameInfo}>
           <span className={styles.moves}>Moves: {moves}</span>
+          <button className={styles.rulesButton} onClick={toggleRules}>
+            Show Rules
+          </button>
           <button className={styles.resetButton} onClick={resetGame}>Reset</button>
         </div>
+        
         <div className={styles.board}>
           {board.map((row, rowIndex) => (
             <div key={rowIndex} className={styles.row}>
@@ -154,6 +163,28 @@ const PegSolitaire = () => {
             </div>
           ))}
         </div>
+
+        {/* Rules Dialog */}
+        {showRules && (
+          <div className={styles.rulesDialog}>
+            <div className={styles.rulesContent}>
+              <h2>Peg Solitaire Rules</h2>
+              <ol>
+                <li>Click on a peg to select it (it will highlight)</li>
+                <li>Click on an empty space to move the selected peg</li>
+                <li>Pegs can only move by jumping over another peg horizontally or vertically</li>
+                <li>The jumped-over peg is removed from the board</li>
+                <li>You cannot move diagonally or skip empty spaces</li>
+                <li>The goal is to end with only one peg remaining</li>
+                <li>Ideally, the last peg should be in the center position</li>
+              </ol>
+              <button onClick={toggleRules} className={styles.closeButton}>
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+
         {(gameOver || won) && (
           <div className={styles.gameOverlay}>
             <div className={styles.gameOverMessage}>

@@ -211,7 +211,7 @@ const WordGuessing = () => {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Word Guessing Game</h2>
+            <h2 className={styles.title}>Wordle</h2>
             <div className={styles.gameInfo}>
                 <span>Attempts: {attempts}</span>
             </div>

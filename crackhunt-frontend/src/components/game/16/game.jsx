@@ -12,6 +12,7 @@ const HexGame = () => {
   const [gameCompleted, setGameCompleted] = useState(false);
   const [startTime, setStartTime] = useState(Date.now());
   const [moves, setMoves] = useState(0);
+  const [showRules, setShowRules] = useState(false); // New state for rules dialog
   const navigate = useNavigate();
   const currentLevel = 'level-16';
 
@@ -323,6 +324,32 @@ const HexGame = () => {
 
   return (
     <div className={styles.container}>
+      {showRules && (
+        <div className={styles.rulesDialog}>
+          <div className={styles.rulesContent}>
+            <h2>Hex Game Rules</h2>
+            <div className={styles.rulesScroll}>
+              <ol>
+                <li><strong>Objective:</strong> Connect your two opposite sides of the board before your opponent does.</li>
+                <li><strong>Red Player (You):</strong> You play as Red and need to connect the top and bottom sides.</li>
+                <li><strong>Blue Player (AI):</strong> The AI plays as Blue and needs to connect the left and right sides.</li>
+                <li><strong>Gameplay:</strong> Players alternate turns placing their colored pieces on empty hexagons.</li>
+                <li><strong>Winning:</strong> The first player to create an unbroken chain of their color connecting their two sides wins.</li>
+                <li><strong>Strategy:</strong> Focus on creating multiple potential paths while blocking your opponent's connections.</li>
+                <li><strong>Note:</strong> There are no ties in Hex - one player must win.</li>
+              </ol>
+              <p>The game was invented by the Danish mathematician Piet Hein in 1942 and independently by John Nash in 1948.</p>
+            </div>
+            <button 
+              className={styles.closeButton}
+              onClick={() => setShowRules(false)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       {gameCompleted && (
         <div className={styles.completionScreen}>
           <div className={styles.completionContent}>
@@ -377,6 +404,12 @@ const HexGame = () => {
         
         <div className={styles.controls}>
           <button onClick={resetGame} className={styles.button}>New Game</button>
+          <button 
+            onClick={() => setShowRules(true)} 
+            className={styles.button}
+          >
+            Show Rules
+          </button>
           {winner && winner === 'red' && (
             <button 
               className={styles.button}

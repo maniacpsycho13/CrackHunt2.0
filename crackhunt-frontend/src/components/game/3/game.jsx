@@ -20,11 +20,12 @@ const SimonSays = () => {
   const [winner, setWinner] = useState(false);
   const [activeColor, setActiveColor] = useState(null);
   const [startTime, setStartTime] = useState(Date.now());
-  const currentLevel = 'level-3'; // Set this based on the current game level
+  const [showRules, setShowRules] = useState(false); // State for rules dialog
+  const currentLevel = 'level-3';
 
   const updateUserScore = async () => {
     const endTime = Date.now();
-    const completionTime = Math.floor((endTime - startTime) / 1000); // Convert to seconds
+    const completionTime = Math.floor((endTime - startTime) / 1000);
     
     try {
       const token = localStorage.getItem('accessToken');
@@ -121,6 +122,10 @@ const SimonSays = () => {
     }
   };
 
+  const toggleRules = () => {
+    setShowRules(!showRules);
+  };
+
   useEffect(() => {
     if (isPlaying && isComputerTurn && sequence.length > 0) {
       playSequence();
@@ -136,6 +141,31 @@ const SimonSays = () => {
       <h1>Simon Says</h1>
       <div className={styles.score}>Score: {score}</div>
       
+      {/* Rules Button */}
+      <button onClick={toggleRules} className={styles.rulesButton}>
+        Show Rules
+      </button>
+
+      {/* Rules Dialog */}
+      {showRules && (
+        <div className={styles.rulesDialog}>
+          <div className={styles.rulesContent}>
+            <h2>Simon Says Rules</h2>
+            <ol>
+              <li>Watch the sequence of colors that Simon shows</li>
+              <li>Repeat the sequence by clicking the colors in the same order</li>
+              <li>Each successful repetition increases your score</li>
+              <li>Make a mistake and the game ends</li>
+              <li>Reach a score of {WINNING_SCORE} to win the game</li>
+              <li>Pay attention - the sequence gets longer each turn!</li>
+            </ol>
+            <button onClick={toggleRules} className={styles.closeButton}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className={styles.simonBoard}>
         {COLORS.map(color => (
           <button

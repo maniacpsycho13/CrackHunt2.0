@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styles from "./game5.module.css";
 import axios from "axios";
 
-// Game Constants
 const GRAVITY = -0.1;
 const JUMP_STRENGTH = -5;
 const DESCEND_STRENGTH = -2;
@@ -13,7 +12,7 @@ const PIPE_SPEED = 2;
 const BIRD_X_POSITION = 100;
 const GAME_HEIGHT = 600;
 const GAME_WIDTH = 800;
-const WIN_SCORE = 1;
+const WIN_SCORE = 8;
 
 const FlappyBird = () => {
     const [birdY, setBirdY] = useState(GAME_HEIGHT / 2);
@@ -24,7 +23,7 @@ const FlappyBird = () => {
     const [startTime, setStartTime] = useState(Date.now());
     const navigate = useNavigate();
     const gameLoopRef = useRef(null);
-    const currentLevel = 'level-5'; // Set this based on the current game level
+    const currentLevel = 'level-5';
 
     const gameStateRef = useRef({
         birdY: GAME_HEIGHT / 2,
@@ -36,11 +35,11 @@ const FlappyBird = () => {
 
     const updateUserScore = async () => {
         const endTime = Date.now();
-        const completionTime = Math.floor((endTime - startTime) / 1000); // Convert to seconds
+        const completionTime = Math.floor((endTime - startTime) / 1000);
         
         try {
             const token = localStorage.getItem('accessToken');
-            const response = await axios.post(
+            await axios.post(
                 "https://crackhunt2-0.onrender.com/api/user/update-score",
                 {
                     level_completed: currentLevel,
@@ -52,11 +51,9 @@ const FlappyBird = () => {
                     }
                 }
             );
-            console.log("Score updated:", response.data);
-            return true;
+            setTimeout(() => navigate("/game/6"), 2000);
         } catch (error) {
             console.error("Failed to update score:", error);
-            return false;
         }
     };
 
@@ -130,9 +127,7 @@ const FlappyBird = () => {
                 gs.scoredPipes.add(pipe.id);
                 if (gs.score >= WIN_SCORE) {
                     setGameWon(true);
-                    updateUserScore().then(() => {
-                        setTimeout(() => navigate("/game/6"), 2000);
-                    });
+                    updateUserScore();
                 }
             }
         }
@@ -177,14 +172,8 @@ const FlappyBird = () => {
                     ))}
                 </div>
                 <p className={styles.score}>Score: {score}</p>
-                {(gameOver || gameWon) && (
-                    <div className={styles.modalOverlay}>
-                        <div className={styles.modal}>
-                            <h3>{gameWon ? "You Win! 🎉" : "You Lose!"}</h3>
-                            <p>Your score: {score}</p>
-                            <button onClick={resetGame} className={styles.restartBtn}>Restart Game</button>
-                        </div>
-                    </div>
+                {gameOver && (
+                    <button onClick={resetGame} className={styles.restartBtn}>Restart Game</button>
                 )}
             </div>
         </div>
