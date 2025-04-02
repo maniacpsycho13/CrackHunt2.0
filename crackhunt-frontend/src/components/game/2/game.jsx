@@ -60,8 +60,9 @@ const Minesweeper = () => {
     const [gameOver, setGameOver] = useState(false);
     const [gameWon, setGameWon] = useState(false);
     const [startTime, setStartTime] = useState(Date.now());
+    const [showRules, setShowRules] = useState(false); // State for rules dialog
     const navigate = useNavigate();
-    const currentLevel = 'level-2'; // Set this based on the current game level
+    const currentLevel = 'level-2';
 
     useEffect(() => {
         setGrid(generateGrid());
@@ -70,10 +71,10 @@ const Minesweeper = () => {
 
     const updateUserScore = async () => {
         const endTime = Date.now();
-        const completionTime = Math.floor((endTime - startTime) / 1000); // Convert to seconds
+        const completionTime = Math.floor((endTime - startTime) / 1000);
         
         try {
-            const token = localStorage.getItem('accessToken'); // Assuming you store JWT in localStorage
+            const token = localStorage.getItem('accessToken');
             const response = await axios.post(
                 "https://crackhunt2-0.onrender.com/api/user/update-score",
                 {
@@ -96,9 +97,7 @@ const Minesweeper = () => {
 
     useEffect(() => {
         if (gameWon) {
-            // Update score in the backend
             updateUserScore().then(success => {
-                // Navigate to next level after 2 seconds
                 const timer = setTimeout(() => {
                     navigate("/game/3");
                 }, 2000);
@@ -183,9 +182,40 @@ const Minesweeper = () => {
         }
     };
 
+    const toggleRules = () => {
+        setShowRules(!showRules);
+    };
+
     return (
         <div className={styles.minesweeperContainer}>
             <h2>Minesweeper</h2>
+            
+            {/* Rules Button */}
+            <button onClick={toggleRules} className={styles.rulesButton}>
+                Show Rules
+            </button>
+
+            {/* Rules Dialog */}
+            {showRules && (
+                <div className={styles.rulesDialog}>
+                    <div className={styles.rulesContent}>
+                        <h2>Minesweeper Rules</h2>
+                        <ol>
+                            <li>Left-click to reveal a cell</li>
+                            <li>Right-click to place/remove a flag</li>
+                            <li>Numbers show how many mines are adjacent to that cell</li>
+                            <li>Avoid clicking on mines (💣)</li>
+                            <li>Flag all mines (🚩) or reveal all safe cells to win</li>
+                            <li>Total mines: {MINE_COUNT}</li>
+                            <li>Grid size: {GRID_SIZE}x{GRID_SIZE}</li>
+                        </ol>
+                        <button onClick={toggleRules} className={styles.closeButton}>
+                            Close
+                        </button>
+                    </div>
+                </div>
+            )}
+
             <div className={styles.grid}>
                 {grid.map((row, rowIndex) =>
                     row.map((cell, colIndex) => (
