@@ -30,9 +30,9 @@ const Profile = () => {
       const { refreshToken , username } = response.data;
       localStorage.setItem("accessToken", refreshToken);
       localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("username", loggedInUser);
+      localStorage.setItem("username", username);
 
-      login(loggedInUser); // Store user in AuthContext
+      // login(loggedInUser); // Store user in AuthContext
       navigate("/"); // Redirect to home page
     } catch (error) {
       setError("Invalid username or password");
