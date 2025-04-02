@@ -31,7 +31,7 @@ const LeaderBoard = () => {
             'Content-Type': 'application/json',
           } : {
             'Content-Type': 'application/json',
-          }
+          },withCredentials: true
         });
 
         const leaderboardData = leaderboardResponse.data.leaderboard || [];
