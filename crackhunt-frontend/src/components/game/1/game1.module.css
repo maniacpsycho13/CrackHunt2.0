@@ -87,6 +87,74 @@
   transform: scale(1);
 }
 
+/* Rules Button */
+.rulesButton {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.rulesButton:hover {
+  background-color: #45a049;
+}
+
+/* Rules Dialog */
+.rulesDialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.rulesContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rulesContent h2 {
+  margin-top: 0;
+  color: #121212;
+}
+
+.rulesContent ol {
+  padding-left: 20px;
+  text-align: left;
+}
+
+.rulesContent li {
+  margin-bottom: 8px;
+  color: black;
+}
+
+.closeButton {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.closeButton:hover {
+  background-color: #d32f2f;
+}
+
 .gameOver {
   font-size: 1.5rem;
   margin: 20px 0;

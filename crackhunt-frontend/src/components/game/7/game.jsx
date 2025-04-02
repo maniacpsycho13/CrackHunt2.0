@@ -23,7 +23,7 @@ const LightsOut = () => {
         {
           level_completed: currentLevel,
           completion_time: completionTime,
-          moves: moves // Optional: You can also send the number of moves if you want to track efficiency
+          moves: moves
         },
         {
           headers: {
@@ -48,18 +48,18 @@ const LightsOut = () => {
 
   // Create a randomized board
   const randomizeBoard = () => {
-    const newBoard = Array(BOARD_SIZE).fill().map(() => Array(BOARD_SIZE).fill(false));
+    let newBoard = Array(BOARD_SIZE).fill().map(() => Array(BOARD_SIZE).fill(true)); // Start with all lights ON
     
     // Make random moves to create a solvable puzzle
     for (let i = 0; i < BOARD_SIZE * 2; i++) {
       const row = Math.floor(Math.random() * BOARD_SIZE);
       const col = Math.floor(Math.random() * BOARD_SIZE);
-      toggleLights(newBoard, row, col);
+      newBoard = toggleLights(newBoard, row, col); // Capture the returned board
     }
     
     setBoard(newBoard);
     setMoves(0);
-    setStartTime(Date.now()); // Reset timer when game starts/resets
+    setStartTime(Date.now());
   };
 
   // Toggle lights (the clicked cell and adjacent cells)
@@ -92,13 +92,13 @@ const LightsOut = () => {
     checkWin(newBoard);
   };
 
-  // Check if all lights are off (win condition)
+  // Check if all lights are ON (win condition)
   const checkWin = (currentBoard) => {
-    const hasWon = currentBoard.every(row => row.every(cell => !cell));
+    const hasWon = currentBoard.every(row => row.every(cell => cell));
     if (hasWon) {
       setGameState('won');
       updateUserScore().then(() => {
-        setTimeout(() => navigate('/game/8'), 2000); // Navigate to Level 8 after 2 seconds
+        setTimeout(() => navigate('/game/8'), 2000);
       });
     }
   };
@@ -119,7 +119,7 @@ const LightsOut = () => {
 
   // Show rules
   const showRules = () => {
-    alert(`Rules:\n\n1. Click on cells to toggle lights\n2. Clicking a cell toggles its state and its adjacent cells\n3. Turn off all lights to win the game\n4. Try to win in minimum moves possible!`);
+    alert(`Rules:\n\n1. Click on cells to toggle lights\n2. Clicking a cell toggles its state and its adjacent cells\n3. Turn ON all lights to win the game\n4. Try to win in minimum moves possible!`);
   };
 
   // Reset the current game
@@ -137,7 +137,7 @@ const LightsOut = () => {
             <h3>Game Rules</h3>
             <p>Click on cells to toggle lights</p>
             <p>Clicking a cell toggles its state and adjacent cells</p>
-            <p>Turn off all lights to win the game</p>
+            <p>Turn ON all lights to win the game</p>
             <p>Try to win in minimum moves possible!</p>
           </div>
           <button className={styles.startButton} onClick={startGame}>Start Game</button>

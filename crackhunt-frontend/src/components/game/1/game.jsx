@@ -15,9 +15,10 @@ const Hangman = () => {
   const [gameOver, setGameOver] = useState(false);
   const [levelCompleted, setLevelCompleted] = useState(false);
   const [startTime, setStartTime] = useState(Date.now());
+  const [showRules, setShowRules] = useState(false); // New state for rules dialog
   const maxMistakes = 6;
   const navigate = useNavigate();
-  const currentLevel = 'level-1'; // Set this based on the current game level
+  const currentLevel = 'level-1';
 
   useEffect(() => {
     setWord(words[Math.floor(Math.random() * words.length)].toUpperCase());
@@ -43,10 +44,10 @@ const Hangman = () => {
 
   const updateUserScore = async () => {
     const endTime = Date.now();
-    const completionTime = Math.floor((endTime - startTime) / 1000); // Convert to seconds
+    const completionTime = Math.floor((endTime - startTime) / 1000);
     
     try {
-      const token = localStorage.getItem('refreshToken'); // Assuming you store JWT in localStorage
+      const token = localStorage.getItem('refreshToken');
       console.log("Updating score with token:", token);
   
       const response = await axios.post(
@@ -76,9 +77,7 @@ const Hangman = () => {
       setGameOver(true);
       setLevelCompleted(true);
       
-      // Update score in the backend
       updateUserScore().then(success => {
-        // Navigate to next level after 2 seconds
         const timer = setTimeout(() => {
           navigate("/game/2");
         }, 2000);
@@ -96,10 +95,40 @@ const Hangman = () => {
     setStartTime(Date.now());
   };
 
+  const toggleRules = () => {
+    setShowRules(!showRules);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.hangman}>
         <h1>Hangman</h1>
+        
+        {/* Rules Button */}
+        <button onClick={toggleRules} className={styles.rulesButton}>
+          Show Rules
+        </button>
+
+        {/* Rules Dialog */}
+        {showRules && (
+          <div className={styles.rulesDialog}>
+            <div className={styles.rulesContent}>
+              <h2>Hangman Game Rules</h2>
+              <ol>
+                <li>Guess the hidden word by selecting letters</li>
+                <li>Each correct letter reveals its position in the word</li>
+                <li>Each incorrect guess adds to your mistakes</li>
+                <li>You can make up to {maxMistakes} mistakes</li>
+                <li>Win by guessing all letters before making too many mistakes</li>
+                <li>All words are related to programming</li>
+              </ol>
+              <button onClick={toggleRules} className={styles.closeButton}>
+                Close
+              </button>
+            </div>
+          </div>
+        )}
+
         <p className={styles.word}>{displayWord()}</p>
         <p className={styles.mistakes}>Mistakes: {mistakes} / {maxMistakes}</p>
 
