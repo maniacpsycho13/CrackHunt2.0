@@ -18,9 +18,6 @@ const Games = () => {
   useEffect(() => {
     axios
       .get("https://crackhunt2-0.onrender.com/api/user/get-score", { 
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
         withCredentials: true,
        }) // token auth
       .then(response => {
