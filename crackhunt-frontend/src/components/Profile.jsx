@@ -27,7 +27,7 @@ const Profile = () => {
       console.log(response.data);
       
 
-      const { refreshToken , username: loggedInUser } = response.data;
+      const { refreshToken , username } = response.data;
       localStorage.setItem("accessToken", refreshToken);
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("username", loggedInUser);

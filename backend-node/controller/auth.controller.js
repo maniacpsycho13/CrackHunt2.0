@@ -62,7 +62,7 @@ export const loginUser = async (req, res) => {
     // Set HTTP-only cookie
     res.cookie("token", accessToken, COOKIE_OPTIONS);
 
-    res.status(200).json({ message: "User logged in successfully" });
+    res.status(200).json({ message: "User logged in successfully" , username: user.username, email: user.email });
 };
 
 export const logoutUser = async (req, res) => {
