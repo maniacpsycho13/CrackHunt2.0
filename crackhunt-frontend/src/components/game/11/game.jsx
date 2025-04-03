@@ -30,8 +30,8 @@ const Sudoku = () => {
   const updateScore = async (gameId, score) => {
     try {
       const response = await axios.post("https://crackhunt2-0.onrender.com/api/user/update-score", {
-        level_completed: 'level-11',
-        completion_time: score,
+        level_completed: 'U2FsdGVkX1/R2QhFwFrozwUkF+IqSTCuUjd6e6OwSS4=',
+        completion_time: 0,
 
       }, {
         withCredentials: true,

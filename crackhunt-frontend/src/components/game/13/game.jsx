@@ -23,8 +23,8 @@ const TowerOfHanoi = () => {
     try {
       const response = await axios.post("https://crackhunt2-0.onrender.com/api/user/update-score", {
         
-        level_completed: 'level-13',
-        completion_time: score,
+        level_completed: 'U2FsdGVkX1876ZiiLaa5/rjR82WM79rhtBtDQtbgLWM=',
+        completion_time: 0,
       }, {
         withCredentials: true,
       });

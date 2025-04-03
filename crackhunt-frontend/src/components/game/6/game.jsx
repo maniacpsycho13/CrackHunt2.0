@@ -23,7 +23,7 @@ const PegSolitaire = () => {
   const [startTime, setStartTime] = useState(Date.now());
   const [showRules, setShowRules] = useState(false); // State for rules dialog
   const navigate = useNavigate();
-  const currentLevel = 'level-6';
+  const currentLevel = "U2FsdGVkX19Atq5pkqUsHa5o9DKJHd13bmTE9gofyCA=";
 
   useEffect(() => {
     resetGame();

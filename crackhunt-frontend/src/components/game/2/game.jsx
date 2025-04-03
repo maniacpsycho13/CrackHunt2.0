@@ -62,7 +62,7 @@ const Minesweeper = () => {
     const [startTime, setStartTime] = useState(Date.now());
     const [showRules, setShowRules] = useState(false); // State for rules dialog
     const navigate = useNavigate();
-    const currentLevel = 'level-2';
+    const currentLevel = "U2FsdGVkX19Ym1HqbKbTYtP/7Qha4oFeWFFOAED+lfY=";
 
     useEffect(() => {
         setGrid(generateGrid());

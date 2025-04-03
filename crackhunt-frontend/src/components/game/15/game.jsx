@@ -12,7 +12,7 @@ const TicTacToe = () => {
   const [startTime, setStartTime] = useState(Date.now());
   const [moves, setMoves] = useState(0);
   const navigate = useNavigate();
-  const currentLevel = 'level-15';
+  const currentLevel = 'U2FsdGVkX19iNvYczFgdUVprgKKoEPN/vyyZ/Fwebb0=';
 
   // Add updateUserScore function
   const updateUserScore = async () => {

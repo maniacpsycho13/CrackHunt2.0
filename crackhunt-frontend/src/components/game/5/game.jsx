@@ -23,7 +23,7 @@ const FlappyBird = () => {
     const [startTime, setStartTime] = useState(Date.now());
     const navigate = useNavigate();
     const gameLoopRef = useRef(null);
-    const currentLevel = 'level-5';
+    const currentLevel = "U2FsdGVkX1+qtDPNoCKwJj2RMgNdV3JCpf4g1tDwfNc=";
 
     const gameStateRef = useRef({
         birdY: GAME_HEIGHT / 2,

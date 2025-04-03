@@ -18,7 +18,7 @@ const Hangman = () => {
   const [showRules, setShowRules] = useState(false); // New state for rules dialog
   const maxMistakes = 6;
   const navigate = useNavigate();
-  const currentLevel = 'level-1';
+  const currentLevel = "U2FsdGVkX19h0OJTzewEyvwm3ZalekY6osoyX4UPihE=";
 
   useEffect(() => {
     setWord(words[Math.floor(Math.random() * words.length)].toUpperCase());

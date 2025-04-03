@@ -26,7 +26,7 @@ const MastermindGame = () => {
   const [showRules, setShowRules] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [startTime, setStartTime] = useState(Date.now());
-  const currentLevel = 'level-8';
+  const currentLevel = "U2FsdGVkX19Wn+W4Ww3lvj29uK0tjrMWdDEFQX7bw0M=";
 
   const updateUserScore = async () => {
     const endTime = Date.now();

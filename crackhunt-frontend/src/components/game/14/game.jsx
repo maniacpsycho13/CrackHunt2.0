@@ -11,7 +11,7 @@ const KakuroGame = () => {
   const [startTime, setStartTime] = useState(Date.now());
   const [moves, setMoves] = useState(0);
   const navigate = useNavigate();
-  const currentLevel = 'level-14';
+  const currentLevel = 'U2FsdGVkX1+jJk+jYOu65+Hawma31s0dbyt8zvPd7Zc=';
 
   // Puzzle definition
   const puzzle = [

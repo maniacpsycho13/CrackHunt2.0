@@ -14,7 +14,7 @@ const HexGame = () => {
   const [moves, setMoves] = useState(0);
   const [showRules, setShowRules] = useState(false); // New state for rules dialog
   const navigate = useNavigate();
-  const currentLevel = 'level-16';
+  const currentLevel = 'U2FsdGVkX1/KY9pGX+yXzyOSJvYhbfAL3ebFu0+ME3Y=';
 
   // Hex neighbor offsets for even-r offset coordinates
   const evenROffsets = {

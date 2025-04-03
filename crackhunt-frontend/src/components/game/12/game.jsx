@@ -61,7 +61,7 @@ const WordGuessing = () => {
     const wordLength = 5;
     const maxAttempts = 6;
     const navigate = useNavigate();
-    const currentLevel = 'level-12';
+    const currentLevel = 'U2FsdGVkX19sdxjVkiTqX1jW1OMDr7mVnsZMQbZc7VU=';
     
     const [word, setWord] = useState(() =>
         words[Math.floor(Math.random() * words.length)].toUpperCase()

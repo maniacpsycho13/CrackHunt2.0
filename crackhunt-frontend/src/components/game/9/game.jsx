@@ -14,7 +14,7 @@ const MazeGame = () => {
   const mazeWidth = 21;
   const mazeHeight = 21;
   const navigate = useNavigate();
-  const currentLevel = 'level-9';
+  const currentLevel = "U2FsdGVkX19pwedNZi7F5CRK7IJwAtFgDZcdwfiJY3g=";
 
   // Add updateUserScore function
   const updateUserScore = async () => {

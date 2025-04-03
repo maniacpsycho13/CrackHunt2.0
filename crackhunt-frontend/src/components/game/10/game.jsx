@@ -14,7 +14,7 @@ const ReversiGame = () => {
   const [startTime, setStartTime] = useState(Date.now());
   const [moves, setMoves] = useState(0);
   const navigate = useNavigate();
-  const currentLevel = 'level-10';
+  const currentLevel = "U2FsdGVkX1+4Ooh9YhajOqCbktiFEPIqQdgrZzAqxcI=";
 
   const updateUserScore = async () => {
     const endTime = Date.now();

@@ -11,7 +11,7 @@ const SlidingPuzzle = () => {
   const [startTime, setStartTime] = useState(Date.now());
   const [showRules, setShowRules] = useState(false); // State for rules dialog
   const navigate = useNavigate();
-  const currentLevel = 'level-4';
+  const currentLevel = "U2FsdGVkX1/BaFqXY5RogZE8s2hWKK0mtcWWWkKkl+k=";
   const size = 4; // 4x4 grid
 
   const updateUserScore = async () => {

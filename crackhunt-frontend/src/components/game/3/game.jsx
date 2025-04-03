@@ -21,7 +21,7 @@ const SimonSays = () => {
   const [activeColor, setActiveColor] = useState(null);
   const [startTime, setStartTime] = useState(Date.now());
   const [showRules, setShowRules] = useState(false); // State for rules dialog
-  const currentLevel = 'level-3';
+  const currentLevel = "U2FsdGVkX19X8AgjmZXHTTAxx8WmY16XhOzfhkKuZQg=";
 
   const updateUserScore = async () => {
     const endTime = Date.now();

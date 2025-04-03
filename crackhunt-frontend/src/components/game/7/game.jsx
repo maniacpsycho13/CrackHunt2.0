@@ -10,7 +10,7 @@ const LightsOut = () => {
   const [board, setBoard] = useState(Array(BOARD_SIZE).fill().map(() => Array(BOARD_SIZE).fill(false)));
   const [startTime, setStartTime] = useState(Date.now());
   const navigate = useNavigate();
-  const currentLevel = 'level-7'; // Set this based on the current game level
+  const currentLevel = "U2FsdGVkX1/JalJ/QXqnnYg6gBaj/LI6zj1gvFzVCqA=";
 
   const updateUserScore = async () => {
     const endTime = Date.now();
