@@ -65,7 +65,7 @@ export const updateScore = async (req, res) => {
         console.log("User and level found",level);
 
 
-        const score1=level.levelNumber*1000-completion_time;
+        const score1=level.levelNumber*1000-Math.abs(completion_time);
         console.log("Score:",score1);
 
         // Update or create user progress
