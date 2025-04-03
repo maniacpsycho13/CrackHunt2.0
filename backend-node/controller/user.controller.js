@@ -2,13 +2,33 @@
 import { db } from "../lib/db.js";
 
 
+const levelMap = {
+    "U2FsdGVkX19h0OJTzewEyvwm3ZalekY6osoyX4UPihE=": "level-1",
+    "U2FsdGVkX19Ym1HqbKbTYtP/7Qha4oFeWFFOAED+lfY=": "level-2",
+    "U2FsdGVkX19X8AgjmZXHTTAxx8WmY16XhOzfhkKuZQg=": "level-3",
+    "U2FsdGVkX1/BaFqXY5RogZE8s2hWKK0mtcWWWkKkl+k=": "level-4",
+    "U2FsdGVkX1+qtDPNoCKwJj2RMgNdV3JCpf4g1tDwfNc=": "level-5",
+    "U2FsdGVkX19Atq5pkqUsHa5o9DKJHd13bmTE9gofyCA=": "level-6",
+    "U2FsdGVkX1/JalJ/QXqnnYg6gBaj/LI6zj1gvFzVCqA=": "level-7",
+    "U2FsdGVkX19Wn+W4Ww3lvj29uK0tjrMWdDEFQX7bw0M=": "level-8",
+    "U2FsdGVkX19pwedNZi7F5CRK7IJwAtFgDZcdwfiJY3g=": "level-9",
+    "U2FsdGVkX1+4Ooh9YhajOqCbktiFEPIqQdgrZzAqxcI=": "level-10",
+    "U2FsdGVkX1/R2QhFwFrozwUkF+IqSTCuUjd6e6OwSS4=": "level-11",
+    "U2FsdGVkX19sdxjVkiTqX1jW1OMDr7mVnsZMQbZc7VU=": "level-12",
+    "U2FsdGVkX1876ZiiLaa5/rjR82WM79rhtBtDQtbgLWM=": "level-13",
+    "U2FsdGVkX1+jJk+jYOu65+Hawma31s0dbyt8zvPd7Zc=": "level-14",
+    "U2FsdGVkX19iNvYczFgdUVprgKKoEPN/vyyZ/Fwebb0=": "level-15",
+    "U2FsdGVkX1/KY9pGX+yXzyOSJvYhbfAL3ebFu0+ME3Y=": "level-16"
+};
+
+
 export const updateScore = async (req, res) => {
     try {
         console.log("Updating score");
         console.log("Request body:", req.body);
         
         const { userId } = req;
-        const { level_completed, completion_time } = req.body;
+        const { level_completed, completion_time , score } = req.body;
         console.log("User ID:", userId);
         console.log("Level Completed:", level_completed);
         console.log("Completion Time:", completion_time);
@@ -20,6 +40,12 @@ export const updateScore = async (req, res) => {
             return res.status(400).json({ message: "All fields are required" });
         }
 
+        const levelIdString = levelMap[level_completed];
+        if (!levelIdString) {
+            return res.status(400).json({ message: "Invalid level provided" });
+        }
+
+        console.log("Decrypted Level:", levelIdString);
         // Check if user exists
         const user = await db.user.findUnique({
             where: { id: userId }
@@ -30,7 +56,7 @@ export const updateScore = async (req, res) => {
 
         // Check if level exists
         const level = await db.level.findUnique({
-            where: { id: level_completed }
+            where: { id: levelIdString }
         });
         if (!level) {
             return res.status(404).json({ message: "Level not found" });
@@ -39,17 +65,17 @@ export const updateScore = async (req, res) => {
         console.log("User and level found",level);
 
 
-        const score=level.levelNumber*1000-completion_time;
-        console.log("Score:",score);
+        const score1=level.levelNumber*1000-completion_time;
+        console.log("Score:",score1);
 
         // Update or create user progress
         const progress = await db.userLevelProgress.upsert({
-            where: { userId_levelId: { userId, levelId: level_completed } },
-            update: { completedTime: score },
+            where: { userId_levelId: { userId, levelId: levelIdString } },
+            update: { completedTime: score1 },
             create: {
                 userId,
-                levelId: level_completed,
-                completedTime: score
+                levelId: levelIdString,
+                completedTime: score1
             }
         });
 
