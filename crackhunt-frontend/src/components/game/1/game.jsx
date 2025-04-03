@@ -4,9 +4,22 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const words = [
-  "javascript", "react", "developer", "computer", "algorithm",
-  "variable", "object", "string", "number", "boolean"
-];
+  "attack", "backup", "binary", "breach", "buffer", "cipher", "cookie", "crypto",
+  "cypher", "decode", "encode", "exploit", "firewall", "forged", "hacker", "hashing",
+  "hexcode", "infiltr", "inquiry", "intrust", "intrude", "jacking", "keyhole",
+  "keylog", "lambda", "leaked", "logjam", "malwar", "markup", "matrix", "module",
+  "mutex", "netcat", "packet", "parity", "passwd", "patchy", "phish", "pirate",
+  "policy", "portal", "privat", "proxy", "public", "python", "quorum", "random",
+  "ransom", "replay", "resolv", "router", "script", "scrub", "secure", "sensor",
+  "server", "shadow", "shell", "signal", "signed", "sniper", "socket", "source",
+  "spybot", "spread", "spyeye", "stegan", "stream", "subnet", "symbol", "syslog",
+  "threat", "ticket", "toggle", "token", "trojan", "tunnel", "unhash", "update",
+  "upload", "uptime", "userid", "verify", "virtual", "virusb", "wallet", "warden",
+  "warner", "webapp", "widget", "window", "wiretap", "wormer", "xorbit", "zerody",
+  "zombie", "access", "action", "admix", "adware", "agents", "alerts", "audit",
+  "backup"
+]
+;
 
 const Hangman = () => {
   const [word, setWord] = useState("");
